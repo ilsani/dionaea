@@ -546,8 +546,12 @@ static void session_download_new(struct incident *i, char *url)
 	struct connection *con = NULL;
 	if( incident_value_con_get(i, "con", &con) )
 	{
+	        g_debug("incident con %s", con->local.ip_string);
+		char* iface = "eth0";
+		
 		session->laddr = g_strdup(con->local.ip_string);
-		curl_easy_setopt(session->easy, CURLOPT_INTERFACE, session->laddr);
+		// curl_easy_setopt(session->easy, CURLOPT_INTERFACE, session->laddr);
+		curl_easy_setopt(session->easy, CURLOPT_INTERFACE, iface);
 		connection_ref(con);
 	}
 
